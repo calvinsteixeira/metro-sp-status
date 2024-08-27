@@ -5,28 +5,44 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { LineMetroCard } from '@/components/index';
 import { Suspense } from 'react';
 
 //UTILS
 import { useQuery } from '@tanstack/react-query';
+import { LineMetroProps } from '@/components/containers/LineMetroCard';
 
 export default function Home() {
-  const { isLoading, isError, data } = useQuery({
+  const {
+    isLoading,
+    isError,
+    data: metroStatusData,
+  } = useQuery({
     queryKey: ['todos'],
     queryFn: async () => {
-      const result = await fetch('https://status-metro-api.onrender.com', {
-        method: 'GET',
-      });
-      return await result.json();
+      try {
+        const result = await fetch('https://status-metro-api.onrender.com', {
+          method: 'GET',
+        });
+
+        if (result.ok) {
+          const response: { lines: LineMetroProps[] } = await result.json();
+          return response;
+        } else {
+          throw Error;
+        }
+      } catch (error) {
+        console.log('Erro na chamada de status do metrô');
+      }
     },
   });
 
   return (
     <main className="py-12">
-      <div className="text-center space-y-4">
+      <div className="text-start space-y-4">
         <h2 className="text-lg">MetrôSP Status</h2>
         <p>
-          Acompanhe o <strong className="text-primary">status atualizado</strong> das linhas de metrô de SP a cada 5 minutos
+          Acompanhe de forma atualizada o <strong className="text-primary">status</strong> das linhas de metrô em SP.
         </p>
       </div>
       <div className="space-y-4">
@@ -49,7 +65,7 @@ export default function Home() {
           </Select>
         </div>
       </div>
-      <div className='mt-6'>
+      <div className="mt-6">
         {isLoading ? (
           <div>
             <Skeleton className="w-full h-[4rem] rounded-md" />
@@ -59,7 +75,19 @@ export default function Home() {
             <Skeleton className="w-full h-[5rem] rounded-md" />
           </div>
         ) : (
-          <div></div>
+          <div>
+            {metroStatusData && metroStatusData.lines.length > 0 ? (
+              <div className='space-y-6'>
+                {metroStatusData.lines.map((metroStatus: LineMetroProps) => (
+                  <LineMetroCard {...metroStatus} />
+                ))}
+              </div>
+            ) : (
+              <div>
+                <p>Nenhuma informação disponível</p>
+              </div>
+            )}
+          </div>
         )}
       </div>
     </main>
