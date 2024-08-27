@@ -1,12 +1,14 @@
-'use client'
+'use client';
 
 //COMPONENTS
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Skeleton } from '@/components/ui/skeleton';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Suspense } from 'react';
 
 //UTILS
-import { useQuery, useQueryClient } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
 
 export default function Home() {
   const { isLoading, isError, data } = useQuery({
@@ -15,11 +17,10 @@ export default function Home() {
       const result = await fetch('https://status-metro-api.onrender.com', {
         method: 'GET',
       });
-
-      return await result.json()
+      return await result.json();
     },
   });
-  
+
   return (
     <main className="py-12">
       <div className="text-center space-y-4">
@@ -46,6 +47,19 @@ export default function Home() {
             </SelectContent>
           </Select>
         </div>
+      </div>
+      <div className='mt-6'>
+        {isLoading ? (
+          <div>
+            <Skeleton className="w-full h-[4rem] rounded-md" />
+            <Skeleton className="w-full h-[5rem] rounded-md" />
+            <Skeleton className="w-full h-[5rem] rounded-md" />
+            <Skeleton className="w-full h-[5rem] rounded-md" />
+            <Skeleton className="w-full h-[5rem] rounded-md" />
+          </div>
+        ) : (
+          <div></div>
+        )}
       </div>
     </main>
   );
