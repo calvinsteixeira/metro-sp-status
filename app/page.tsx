@@ -41,9 +41,10 @@ export default function Home() {
               <SelectValue placeholder="status da linha" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="light">Operação normal</SelectItem>
-              <SelectItem value="dark">Velocidade reduzida</SelectItem>
-              <SelectItem value="system">Inoperante</SelectItem>
+              <SelectItem value="normal">Operação normal</SelectItem>
+              <SelectItem value="reduced_speed">Velocidade reduzida</SelectItem>
+              <SelectItem value="closed">Inoperante</SelectItem>
+              <SelectItem value="paralyzed">Paralizado</SelectItem>
             </SelectContent>
           </Select>
         </div>
