@@ -26,7 +26,7 @@ export default function Component(props: DonutChartProps) {
 
   return (
     <Card className="flex flex-col">
-      <CardHeader className="pb-0">
+      <CardHeader className="pb-0 text-center">
         <CardTitle>Disponibilidade das linhas</CardTitle>
         <CardDescription>{new Date().toLocaleDateString('pt-BR')}</CardDescription>
       </CardHeader>
@@ -56,7 +56,6 @@ export default function Component(props: DonutChartProps) {
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
-        <div className="flex items-center gap-2 font-medium leading-none">Gráfico mostrando a disponibilidade das linhas para o dia de hoje.</div>
         {props.updatedAt && <div className="leading-none text-muted-foreground">Dados atualizados em: {formatDateBR(props.updatedAt)}</div>}
       </CardFooter>
     </Card>

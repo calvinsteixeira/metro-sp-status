@@ -72,22 +72,22 @@ export default function Home() {
   );
 
   return (
-    <main className="w-full py-12 lg:flex">
-      <div className='w-full'>
+    <main className="w-full pt-12 lg:px-28 xl:px-60">
+      <div className="w-full">
         <div className="text-start space-y-4">
           <h2 className="text-lg">MetrôSP Status</h2>
           <p>
             Acompanhe de forma atualizada o <strong className="text-primary">status</strong> das linhas de metrô em SP.
           </p>
         </div>
-        <div className="space-y-4">
-          <div className="w-full space-y-2 mt-12">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3 mt-4">
+          <div>
             <Label className="text-foreground" htmlFor="buscar-linha">
               Buscar pelo nome/id
             </Label>
-            <Input id="buscar-linha" placeholder="informe o nome/id da linha" onChange={(e) => setFilterLineName(e.target.value)} />
+            <Input className='max-w-[20rem]' id="buscar-linha" placeholder="informe o nome/id da linha" onChange={(e) => setFilterLineName(e.target.value)} />
           </div>
-          <div className="space-y-2">
+          <div>
             <Label htmlFor="buscar-linha">Busque pelo status</Label>
             <Select onValueChange={setStatusLine} defaultValue={filterStatusLine}>
               <SelectTrigger className="w-[180px]">
@@ -113,15 +113,15 @@ export default function Home() {
               <Skeleton className="w-full h-[8rem] rounded-md" />
             </div>
           ) : (
-            <div className="lg:flex lg:flex-col lg:gap-4">
-              <div className="lg:max-w-96">
-                <LinesDonutChart updatedAt={metroStatusData?.updatedAt || null} chartConfig={chartConfig} chartData={getCharData()} />
-              </div>
-              <div className="md:mt-0 mt-4">
+            <div className="space-y-4">
+              <LinesDonutChart updatedAt={metroStatusData?.updatedAt || null} chartConfig={chartConfig} chartData={getCharData()} />
+              <div>
                 {metroStatusData && filteredLines && filteredLines.length > 0 ? (
-                  <div className="md:flex-row flex flex-col gap-4 md:flex-wrap md:gap-3">
+                  <div className="flex flex-wrap gap-5">
                     {filteredLines.map((metroStatus: LineMetroProps, index: number) => (
-                      <LineMetroCard key={index} {...metroStatus} updatedAt={metroStatusData.updatedAt} />
+                      <div key={index} className="flex-grow">
+                        <LineMetroCard {...metroStatus} updatedAt={metroStatusData.updatedAt} />
+                      </div>
                     ))}
                   </div>
                 ) : (
