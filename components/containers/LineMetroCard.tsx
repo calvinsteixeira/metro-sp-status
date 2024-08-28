@@ -20,8 +20,8 @@ export default function LineMetroCard(props: LineMetroProps) {
       background: 'bg-[#32a852]',
     },
     reduced_speed: {
-      text: 'text-[#a89c32]',
-      background: 'bg-[#a89c32]',
+      text: 'text-[#fc6603]',
+      background: 'bg-[#fc6603]',
     },
     closed: {
       text: 'text-[#969696]',
