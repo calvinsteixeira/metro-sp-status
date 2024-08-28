@@ -34,10 +34,10 @@ export default function LineMetroCard(props: LineMetroProps) {
   };
 
   return (
-    <div className="px-4 py-6 bg-primaryContainer border-[1px] border-[#ececec] rounded-lg shadow-sm space-y-5 text-sm">
-      <div className="flex gap-2 justify-start">
-        <h2 className="text-base py-1 px-6 bg-background shadow-sm rounded-sm border-[1px] border-[#ececec]">{props.name}</h2>
-        <p className="text-base py-1 px-6 bg-background shadow-sm rounded-sm border-[1px] border-[#ececec]">{props.number}</p>
+    <div className="w-64 px-6 py-6 bg-primaryContainer border-[1px] border-[#ececec] rounded-lg shadow-sm space-y-5 text-sm">
+      <div className="flex gap-2 justify-start w-full h-14">
+        <h2 className=" h-full flex items-center justify-center text-base py-1 px-6 bg-background shadow-sm rounded-sm border-[1px] border-[#ececec]">{props.name}</h2>
+        <p className=" h-full items-center flex text-base py-1 px-6 bg-background shadow-sm rounded-sm border-[1px] border-[#ececec]">{props.number}</p>
       </div>
       <div className="space-y-4">
         <div className="flex flex-col gap-1">
@@ -45,7 +45,7 @@ export default function LineMetroCard(props: LineMetroProps) {
             <span className={cn('w-2 h-2 rounded-full animate-pulse', statusColorClass[props.status].background)}></span>
             <p className={cn('font-semibold', statusColorClass[props.status].text)}>{props.statusDescription}</p>
           </div>
-          {props.reason != props.statusDescription && <p className={cn('font-semibold', statusColorClass[props.status].text)}>{props.reason}</p>}
+          {props.reason != props.statusDescription && <p className={cn('font-semibold max-w-96', statusColorClass[props.status].text)}>{props.reason}</p>}
         </div>
         <p className="flex flex-col text-xs">
           Atualizado em: <span className="font-medium tex-sm">{formatDateBR(props.updatedAt)}</span>

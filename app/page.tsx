@@ -68,64 +68,71 @@ export default function Home() {
   const filteredLines = metroStatusData?.lines.filter(
     (line) =>
       (filterStatusLine === 'all' || line.status === filterStatusLine) &&
-      (line.name.toLowerCase().includes(filterLineName.toLowerCase()) ||
-       line.number.toLowerCase().includes(filterLineName.toLowerCase()))
+      (line.name.toLowerCase().includes(filterLineName.toLowerCase()) || line.number.toLowerCase().includes(filterLineName.toLowerCase()))
   );
 
   return (
-    <main className="py-12">
-      <div className="text-start space-y-4">
-        <h2 className="text-lg">MetrôSP Status</h2>
-        <p>
-          Acompanhe de forma atualizada o <strong className="text-primary">status</strong> das linhas de metrô em SP.
-        </p>
-      </div>
-      <div className="space-y-4">
-        <div className="w-full space-y-2 mt-12">
-          <Label className='text-foreground' htmlFor="buscar-linha">Buscar pelo nome/id</Label>
-          <Input id="buscar-linha" placeholder="informe o nome/id da linha" onChange={(e) => setFilterLineName(e.target.value)} />
+    <main className="w-full py-12 lg:flex">
+      <div className='w-full'>
+        <div className="text-start space-y-4">
+          <h2 className="text-lg">MetrôSP Status</h2>
+          <p>
+            Acompanhe de forma atualizada o <strong className="text-primary">status</strong> das linhas de metrô em SP.
+          </p>
         </div>
-        <div className="space-y-2">
-          <Label htmlFor="buscar-linha">Busque pelo status</Label>
-          <Select onValueChange={setStatusLine} defaultValue={filterStatusLine}>
-            <SelectTrigger className="w-[180px]">
-              <SelectValue placeholder="status da linha" />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="all">Todos os status</SelectItem>
-              <SelectItem value="normal">Operação normal</SelectItem>
-              <SelectItem value="reduced_speed">Circulação de trens</SelectItem>
-              <SelectItem value="closed">Operação encerrada</SelectItem>
-              <SelectItem value="paralyzed">Operação paralizada</SelectItem>
-            </SelectContent>
-          </Select>
-        </div>
-      </div>
-      <div className="mt-6">
-        {isLoading ? (
+        <div className="space-y-4">
+          <div className="w-full space-y-2 mt-12">
+            <Label className="text-foreground" htmlFor="buscar-linha">
+              Buscar pelo nome/id
+            </Label>
+            <Input id="buscar-linha" placeholder="informe o nome/id da linha" onChange={(e) => setFilterLineName(e.target.value)} />
+          </div>
           <div className="space-y-2">
-            <Skeleton className="w-full h-[8rem] rounded-md" />
-            <Skeleton className="w-full h-[8rem] rounded-md" />
-            <Skeleton className="w-full h-[8rem] rounded-md" />
-            <Skeleton className="w-full h-[8rem] rounded-md" />
-            <Skeleton className="w-full h-[8rem] rounded-md" />
+            <Label htmlFor="buscar-linha">Busque pelo status</Label>
+            <Select onValueChange={setStatusLine} defaultValue={filterStatusLine}>
+              <SelectTrigger className="w-[180px]">
+                <SelectValue placeholder="status da linha" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">Todos os status</SelectItem>
+                <SelectItem value="normal">Operação normal</SelectItem>
+                <SelectItem value="reduced_speed">Circulação de trens</SelectItem>
+                <SelectItem value="closed">Operação encerrada</SelectItem>
+                <SelectItem value="paralyzed">Operação paralizada</SelectItem>
+              </SelectContent>
+            </Select>
           </div>
-        ) : (
-          <div className="space-y-3">
-            <LinesDonutChart updatedAt={metroStatusData?.updatedAt || null} chartConfig={chartConfig} chartData={getCharData()} />
-            {metroStatusData && filteredLines && filteredLines.length > 0 ? (
-              <div className="space-y-6">
-                {filteredLines.map((metroStatus: LineMetroProps, index: number) => (
-                  <LineMetroCard key={index} {...metroStatus} updatedAt={metroStatusData.updatedAt} />
-                ))}
+        </div>
+        <div className="mt-6">
+          {isLoading ? (
+            <div className="space-y-2">
+              <Skeleton className="w-full h-[8rem] rounded-md" />
+              <Skeleton className="w-full h-[8rem] rounded-md" />
+              <Skeleton className="w-full h-[8rem] rounded-md" />
+              <Skeleton className="w-full h-[8rem] rounded-md" />
+              <Skeleton className="w-full h-[8rem] rounded-md" />
+            </div>
+          ) : (
+            <div className="lg:flex lg:flex-col lg:gap-4">
+              <div className="lg:max-w-96">
+                <LinesDonutChart updatedAt={metroStatusData?.updatedAt || null} chartConfig={chartConfig} chartData={getCharData()} />
               </div>
-            ) : (
-              <div className='mt-4'>
-                <p>Nenhuma linha foi encontrada</p>
+              <div className="md:mt-0 mt-4">
+                {metroStatusData && filteredLines && filteredLines.length > 0 ? (
+                  <div className="md:flex-row flex flex-col gap-4 md:flex-wrap md:gap-3">
+                    {filteredLines.map((metroStatus: LineMetroProps, index: number) => (
+                      <LineMetroCard key={index} {...metroStatus} updatedAt={metroStatusData.updatedAt} />
+                    ))}
+                  </div>
+                ) : (
+                  <div className="mt-4">
+                    <p>Nenhuma linha foi encontrada</p>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        )}
+            </div>
+          )}
+        </div>
       </div>
     </main>
   );
