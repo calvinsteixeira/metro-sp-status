@@ -6,21 +6,14 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export function formatDateBR(isoString: string) {
-  const date = new Date(isoString);
-  
-  const formattedDate = new Intl.DateTimeFormat('pt-BR', {
-    day: '2-digit',
-    month: '2-digit',
-    year: 'numeric',
-  }).format(date);
+  const [datePart, timePart] = isoString.split('T');
+  const [year, month, day] = datePart.split('-');
+  let [hour, minute] = timePart.split(':');
 
-  const formattedTime = new Intl.DateTimeFormat('en-US', {
-    hour: '2-digit',
-    minute: '2-digit',
-    hour12: true,
-  }).format(date);
+  let hourInt = parseInt(hour, 10);
+  const period = hourInt >= 12 ? 'pm' : 'am';
+  hourInt = hourInt % 12 || 12;
+  hour = hourInt.toString().padStart(2, '0');
 
-  const [time, period] = formattedTime.split(' ');
-
-  return `${formattedDate} às ${time} ${period.toLowerCase()}`;
-};
+  return `${day}/${month}/${year} às ${hour}:${minute} ${period}`;
+}
