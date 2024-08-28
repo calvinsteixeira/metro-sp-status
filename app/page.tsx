@@ -18,7 +18,7 @@ export default function Home() {
     isError,
     data: metroStatusData,
   } = useQuery({
-    queryKey: ['todos'],
+    queryKey: ['getMetroStatus'],
     queryFn: async () => {
       try {
         const result = await fetch('https://status-metro-api.onrender.com', {
@@ -26,7 +26,7 @@ export default function Home() {
         });
 
         if (result.ok) {
-          const response: { lines: LineMetroProps[] } = await result.json();
+          const response: { lines: LineMetroProps[], updatedAt: string } = await result.json();
           return response;
         } else {
           throw Error;
@@ -67,19 +67,19 @@ export default function Home() {
       </div>
       <div className="mt-6">
         {isLoading ? (
-          <div>
-            <Skeleton className="w-full h-[4rem] rounded-md" />
-            <Skeleton className="w-full h-[5rem] rounded-md" />
-            <Skeleton className="w-full h-[5rem] rounded-md" />
-            <Skeleton className="w-full h-[5rem] rounded-md" />
-            <Skeleton className="w-full h-[5rem] rounded-md" />
+          <div className='space-y-2'>
+            <Skeleton className="w-full h-[8rem] rounded-md" />
+            <Skeleton className="w-full h-[8rem] rounded-md" />
+            <Skeleton className="w-full h-[8rem] rounded-md" />
+            <Skeleton className="w-full h-[8rem] rounded-md" />
+            <Skeleton className="w-full h-[8rem] rounded-md" />
           </div>
         ) : (
           <div>
             {metroStatusData && metroStatusData.lines.length > 0 ? (
               <div className='space-y-6'>
                 {metroStatusData.lines.map((metroStatus: LineMetroProps) => (
-                  <LineMetroCard {...metroStatus} />
+                  <LineMetroCard {...metroStatus} updatedAt={metroStatusData.updatedAt}/>
                 ))}
               </div>
             ) : (

@@ -1,33 +1,55 @@
+//COMPONENETS
+
+//UTILS
 import React from 'react';
+import { cn, formatDateBR } from '@/lib/utils';
 
 type LineMetroProps = {
   name: string;
   number: string;
   reason: string;
   statusDescription: string;
+  updatedAt: string;
   status: 'normal' | 'reduced_speed' | 'closed' | 'paralyzed';
 };
 
 export default function LineMetroCard(props: LineMetroProps) {
-  const statusColors = {
-    normal: '#32a852',
-    reduced_speed: '#a89c32',
-    closed: '#969696',
-    paralyzed: '#a83232',
+  const statusColorClass = {
+    normal: {
+      text: 'text-[#32a852]',
+      background: 'bg-[#32a852]',
+    },
+    reduced_speed: {
+      text: 'text-[#a89c32]',
+      background: 'bg-[#a89c32]',
+    },
+    closed: {
+      text: 'text-[#969696]',
+      background: 'bg-[#969696]',
+    },
+    paralyzed: {
+      text: 'text-[#a83232]',
+      background: 'bg-[#a83232]',
+    },
   };
 
-  function getStatusColor(status: LineMetroProps['status']) {
-    return `text-[${statusColors[status]}]` 
-  }
-
   return (
-    <div className="px-4 py-6 border-primary border-[1px] border-[#dfdfdf] rounded-lg shadow-sm space-y-5">
-      <div className="flex gap-2 justify-center">
-        <h2 className="text-base py-1 px-6 bg-white shadow-sm rounded-sm border-[1px] border-[#f3e2e2]">{props.name}</h2>
-        <p className="text-base py-1 px-6 bg-white shadow-sm rounded-sm border-[1px] border-[#dfdfdf]">{props.number}</p>
+    <div className="px-4 py-6 border-primary border-[1px] border-[#d6d6d6] rounded-lg shadow-sm space-y-5 text-sm">
+      <div className="flex gap-2 justify-start">
+        <h2 className="text-base py-1 px-6 bg-white shadow-sm rounded-sm border-[1px] border-[#d6d6d6]">{props.name}</h2>
+        <p className="text-base py-1 px-6 bg-white shadow-sm rounded-sm border-[1px] border-[#d6d6d6]">{props.number}</p>
       </div>
-      <div>
-        <p className={`${getStatusColor(props.status)} text-center font-semibold`}>{props.statusDescription}</p>
+      <div className="space-y-4">
+        <div className="flex flex-col gap-1">
+          <div className="flex gap-2 items-center">
+            <span className={cn('w-2 h-2 rounded-full animate-pulse', statusColorClass[props.status].background)}></span>
+            <p className={cn('font-semibold', statusColorClass[props.status].text)}>{props.statusDescription}</p>
+          </div>
+          {props.reason != props.statusDescription && <p className={cn('font-semibold', statusColorClass[props.status].text)}>{props.reason}</p>}
+        </div>
+        <p className="flex flex-col text-xs">
+          Atualizado em: <span className="font-medium tex-sm">{formatDateBR(props.updatedAt)}</span>
+        </p>
       </div>
     </div>
   );
