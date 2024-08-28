@@ -82,7 +82,7 @@ export default function Home() {
       </div>
       <div className="space-y-4">
         <div className="w-full space-y-2 mt-12">
-          <Label htmlFor="buscar-linha">Buscar pelo nome/id</Label>
+          <Label className='text-foreground' htmlFor="buscar-linha">Buscar pelo nome/id</Label>
           <Input id="buscar-linha" placeholder="informe o nome/id da linha" onChange={(e) => setFilterLineName(e.target.value)} />
         </div>
         <div className="space-y-2">

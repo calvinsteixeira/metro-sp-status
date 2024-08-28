@@ -34,10 +34,10 @@ export default function LineMetroCard(props: LineMetroProps) {
   };
 
   return (
-    <div className="px-4 py-6 border-primary border-[1px] border-[#d6d6d6] rounded-lg shadow-sm space-y-5 text-sm">
+    <div className="px-4 py-6 bg-primaryContainer border-[1px] border-[#ececec] rounded-lg shadow-sm space-y-5 text-sm">
       <div className="flex gap-2 justify-start">
-        <h2 className="text-base py-1 px-6 bg-white shadow-sm rounded-sm border-[1px] border-[#d6d6d6]">{props.name}</h2>
-        <p className="text-base py-1 px-6 bg-white shadow-sm rounded-sm border-[1px] border-[#d6d6d6]">{props.number}</p>
+        <h2 className="text-base py-1 px-6 bg-background shadow-sm rounded-sm border-[1px] border-[#ececec]">{props.name}</h2>
+        <p className="text-base py-1 px-6 bg-background shadow-sm rounded-sm border-[1px] border-[#ececec]">{props.number}</p>
       </div>
       <div className="space-y-4">
         <div className="flex flex-col gap-1">
