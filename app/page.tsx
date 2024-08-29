@@ -75,21 +75,24 @@ export default function Home() {
   return (
     <main className="w-full py-10 pt-12 lg:px-28 xl:px-60">
       <div className="w-full">
-        <div className="text-start space-y-4">
-          <h2 className="text-lg">MetrôSP Status</h2>
-          <p>
+        <div className="flex gap-8 items-center">
+          <h2 className="max-w-max flex flex-col font-bold text-4xl text-[#32a852]">
+            METROSP<span className="font-light">STATUS</span>
+          </h2>
+          <div className="w-[2px] h-[4rem] bg-[#32a852]"></div>
+          <p className="max-w-[17rem]">
             Acompanhe de forma atualizada o <strong className="text-primary">status</strong> das linhas de metrô em SP.
           </p>
         </div>
-        <div className="flex items-end justify-between">
+        <div className="flex flex-row-reverse items-end justify-between mt-14">
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 mt-4">
-            <div>
+            <div className='space-y-2'>
               <Label className="text-foreground" htmlFor="buscar-linha">
                 Buscar pelo nome/id
               </Label>
               <Input className="max-w-[20rem]" id="buscar-linha" placeholder="informe o nome/id da linha" onChange={(e) => setFilterLineName(e.target.value)} />
             </div>
-            <div>
+            <div className='space-y-2'>
               <Label htmlFor="buscar-linha">Busque pelo status</Label>
               <Select onValueChange={setStatusLine} defaultValue={filterStatusLine}>
                 <SelectTrigger className="w-[180px]">
@@ -105,7 +108,7 @@ export default function Home() {
               </Select>
             </div>
           </div>
-          <div className='flex items-center gap-2'>
+          <div className="flex items-center gap-2">
             <Label>dark mode</Label>
             <Switch />
           </div>
