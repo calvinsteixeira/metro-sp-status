@@ -44,15 +44,7 @@ export default function Home() {
         console.log('Erro na chamada de status do metrô');
       }
     },
-  });
-
-  function toggleTheme() {
-    if (theme == 'light') {
-      setTheme('dark');
-    } else {
-      setTheme('light');
-    }
-  }
+  }); 
 
   const chartConfig: DonutChartProps['chartConfig'] = {
     normal: { label: 'Operação Normal', color: '#32a852' },
