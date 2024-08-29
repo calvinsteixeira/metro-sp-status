@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <QueryProvider>
-      <html lang="pt">
+      <html lang="pt" suppressHydrationWarning>
         <body className={inter.className}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
           {children}
