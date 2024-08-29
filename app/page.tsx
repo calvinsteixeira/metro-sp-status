@@ -4,12 +4,12 @@
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { LineMetroCard, LinesDonutChart } from '@/components/index';
 import { Moon, Sun } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button';
+import { Glow, GlowCapture } from '@codaworks/react-glow';
 
 //UTILS
 import React from 'react';
@@ -44,7 +44,7 @@ export default function Home() {
         console.log('Erro na chamada de status do metrô');
       }
     },
-  }); 
+  });
 
   const chartConfig: DonutChartProps['chartConfig'] = {
     normal: { label: 'Operação Normal', color: '#32a852' },
@@ -128,6 +128,7 @@ export default function Home() {
             </DropdownMenu>
           </div>
         </div>
+
         <div className="mt-6">
           {isLoading ? (
             <div className="space-y-2">
@@ -139,16 +140,22 @@ export default function Home() {
             </div>
           ) : (
             <div className="space-y-4">
-              <LinesDonutChart updatedAt={metroStatusData?.updatedAt || null} chartConfig={chartConfig} chartData={getCharData()} />
+              <Glow>
+                <LinesDonutChart updatedAt={metroStatusData?.updatedAt || null} chartConfig={chartConfig} chartData={getCharData()} />
+              </Glow>
               <div>
                 {metroStatusData && filteredLines && filteredLines.length > 0 ? (
-                  <div className="flex flex-wrap gap-5">
-                    {filteredLines.map((metroStatus: LineMetroProps, index: number) => (
-                      <div key={index} className="flex-grow">
-                        <LineMetroCard {...metroStatus} updatedAt={metroStatusData.updatedAt} />
-                      </div>
-                    ))}
-                  </div>
+                  <GlowCapture>
+                    <div className="flex flex-wrap gap-5">
+                      {filteredLines.map((metroStatus: LineMetroProps, index: number) => (
+                        <div key={index} className="flex-grow">
+                          <Glow color="#32a852">
+                            <LineMetroCard {...metroStatus} updatedAt={metroStatusData.updatedAt}/>
+                          </Glow>
+                        </div>
+                      ))}
+                    </div>
+                  </GlowCapture>
                 ) : (
                   <div className="mt-4">
                     <p>Nenhuma linha foi encontrada</p>
