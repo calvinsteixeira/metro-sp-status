@@ -41,6 +41,10 @@ export default function Home() {
     },
   });
 
+  function toggleTheme() {
+    document.documentElement.classList.toggle('dark')
+  }
+
   const chartConfig: DonutChartProps['chartConfig'] = {
     normal: { label: 'Operação Normal', color: '#32a852' },
     reduced_speed: { label: 'Circulação de Trens', color: '#e0982b' },
@@ -110,7 +114,7 @@ export default function Home() {
           </div>
           <div className="flex items-center gap-2">
             <Label>dark mode</Label>
-            <Switch />
+            <Switch onCheckedChange={() => toggleTheme()}/>
           </div>
         </div>
         <div className="mt-6">
