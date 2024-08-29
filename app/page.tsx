@@ -42,7 +42,7 @@ export default function Home() {
 
   const chartConfig: DonutChartProps['chartConfig'] = {
     normal: { label: 'Operação Normal', color: '#32a852' },
-    reduced_speed: { label: 'Circulação de Trens', color: '#fc6603' },
+    reduced_speed: { label: 'Circulação de Trens', color: '#e0982b' },
     closed: { label: 'Operação encerrada', color: '#969696' },
     paralyzed: { label: 'Operação paralizada', color: '#a83232' },
   };
@@ -72,7 +72,7 @@ export default function Home() {
   );
 
   return (
-    <main className="w-full pt-12 lg:px-28 xl:px-60">
+    <main className="w-full py-10 pt-12 lg:px-28 xl:px-60">
       <div className="w-full">
         <div className="text-start space-y-4">
           <h2 className="text-lg">MetrôSP Status</h2>

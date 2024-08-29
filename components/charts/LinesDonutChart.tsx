@@ -25,7 +25,7 @@ export default function Component(props: DonutChartProps) {
   const chartConfig = props.chartConfig satisfies ChartConfig;
 
   return (
-    <Card className="flex flex-col">
+    <Card className="flex flex-col dark:border-[#302f2f] border-[#ececec]">
       <CardHeader className="pb-0 text-center">
         <CardTitle>Disponibilidade das linhas</CardTitle>
         <CardDescription>{new Date().toLocaleDateString('pt-BR')}</CardDescription>
@@ -55,7 +55,7 @@ export default function Component(props: DonutChartProps) {
           </PieChart>
         </ChartContainer>
       </CardContent>
-      <CardFooter className="flex-col gap-2 text-sm">
+      <CardFooter className="flex-col gap-2 text-sm text-center">
         {props.updatedAt && <div className="leading-none text-muted-foreground">Dados atualizados em: {formatDateBR(props.updatedAt)}</div>}
       </CardFooter>
     </Card>

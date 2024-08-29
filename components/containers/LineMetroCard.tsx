@@ -20,8 +20,8 @@ export default function LineMetroCard(props: LineMetroProps) {
       background: 'bg-[#32a852]',
     },
     reduced_speed: {
-      text: 'text-[#fc6603]',
-      background: 'bg-[#fc6603]',
+      text: 'text-[#e0982b]',
+      background: 'bg-[#e0982b]',
     },
     closed: {
       text: 'text-[#969696]',
@@ -34,7 +34,7 @@ export default function LineMetroCard(props: LineMetroProps) {
   };
 
   return (
-    <div className="p-6 bg-primaryContainer border-[1px] border-[#ececec] rounded-lg shadow-sm space-y-5 text-sm">
+    <div className="p-6 bg-primaryContainer border-[1px] dark:border-[#302f2f] border-[#ececec] rounded-lg shadow-sm space-y-5 text-sm">
       <div className="flex gap-2 justify-start items-center w-full py-2">
         <h2>{props.name}</h2>
         <p>{props.number}</p>
