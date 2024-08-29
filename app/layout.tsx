@@ -21,7 +21,7 @@ export default function RootLayout({
       <html lang="pt">
         <body className={inter.className}>
           <ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-            {children}
+          {children}
           </ThemeProvider>
         </body>
       </html>

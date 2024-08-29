@@ -4,12 +4,20 @@
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Switch } from '@/components/ui/switch';
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from '@/components/ui/alert-dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { LineMetroCard, LinesDonutChart } from '@/components/index';
 import { Moon, Sun } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button';
 import { Glow, GlowCapture } from '@codaworks/react-glow';
 
 //UTILS
@@ -18,11 +26,12 @@ import { useQuery } from '@tanstack/react-query';
 import { LineMetroProps } from '@/components/containers/LineMetroCard';
 import { DonutChartProps } from '@/components/charts/LinesDonutChart';
 import { useTheme } from 'next-themes';
-import { metroStatusColor } from '@/constants/metroStatusColors'
+import { metroStatusColor } from '@/constants/metroStatusColors';
 
 export default function Home() {
   const [filterLineName, setFilterLineName] = React.useState<string>('');
   const [filterStatusLine, setStatusLine] = React.useState<string>('all');
+  const [requestTakingTooLong, setRequestTakingTooLong] = React.useState<boolean>(false);
   const { setTheme, theme } = useTheme();
   const {
     isLoading,
@@ -31,10 +40,14 @@ export default function Home() {
   } = useQuery({
     queryKey: ['getMetroStatus'],
     queryFn: async () => {
+      const timer = setTimeout(() => {
+        setRequestTakingTooLong(true);
+      }, 5000);
       try {
         const result = await fetch('https://status-metro-api.onrender.com', {
           method: 'GET',
         });
+        clearTimeout(timer);
         if (result.ok) {
           const response: { lines: LineMetroProps[]; updatedAt: string } = await result.json();
           return response;
@@ -76,6 +89,19 @@ export default function Home() {
   );
   return (
     <main className="w-full py-10 pt-12 lg:px-28 xl:px-60">
+        <AlertDialog open={requestTakingTooLong}>
+          <AlertDialogContent className='max-w-[20rem]'>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Demora no carregamento dos dados?</AlertDialogTitle>
+              <AlertDialogDescription>
+                Devido a uma estratégia de cold start na hospedagem do servidor, o primeiro carregamento dos dados pode demorar mais do que o normal.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+            <AlertDialogFooter>
+              <AlertDialogCancel onClick={() => setRequestTakingTooLong(false)}>Ok, entendi.</AlertDialogCancel>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
       <div className="w-full">
         <div className="flex flex-col sm:flex-row sm:gap-8 gap-4 sm:items-center">
           <h2 className="max-w-max flex flex-col font-bold text-4xl text-[#32a852]">
@@ -147,7 +173,7 @@ export default function Home() {
                       {filteredLines.map((metroStatus: LineMetroProps, index: number) => (
                         <div key={index} className="flex-grow">
                           <Glow color="#32a852">
-                            <LineMetroCard {...metroStatus} updatedAt={metroStatusData.updatedAt}/>
+                            <LineMetroCard {...metroStatus} updatedAt={metroStatusData.updatedAt} />
                           </Glow>
                         </div>
                       ))}
