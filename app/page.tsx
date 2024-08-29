@@ -4,11 +4,12 @@
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { LineMetroCard, LinesDonutChart } from '@/components/index';
 import { Moon, Sun } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
+import { Button } from "@/components/ui/button"
 import { Glow, GlowCapture } from '@codaworks/react-glow';
 
 //UTILS
@@ -17,8 +18,6 @@ import { useQuery } from '@tanstack/react-query';
 import { LineMetroProps } from '@/components/containers/LineMetroCard';
 import { DonutChartProps } from '@/components/charts/LinesDonutChart';
 import { useTheme } from 'next-themes';
-import { metroStatusColors } from '@/lib/constants';
-
 export default function Home() {
   const [filterLineName, setFilterLineName] = React.useState<string>('');
   const [filterStatusLine, setStatusLine] = React.useState<string>('all');
@@ -34,7 +33,6 @@ export default function Home() {
         const result = await fetch('https://status-metro-api.onrender.com', {
           method: 'GET',
         });
-
         if (result.ok) {
           const response: { lines: LineMetroProps[]; updatedAt: string } = await result.json();
           return response;
@@ -46,14 +44,12 @@ export default function Home() {
       }
     },
   });
-
   const chartConfig: DonutChartProps['chartConfig'] = {
-    normal: { label: 'Operação Normal', color: metroStatusColors.normal },
-    reduced_speed: { label: 'Circulação de Trens', color: metroStatusColors.reduced_speed },
-    closed: { label: 'Operação encerrada', color: metroStatusColors.closed },
-    paralyzed: { label: 'Operação paralizada', color: metroStatusColors.reduced_speed },
+    normal: { label: 'Operação Normal', color: '#32a852' },
+    reduced_speed: { label: 'Circulação de Trens', color: '#e0982b' },
+    closed: { label: 'Operação encerrada', color: '#969696' },
+    paralyzed: { label: 'Operação paralizada', color: '#a83232' },
   };
-
   const getCharData = (): DonutChartProps['chartData'] => {
     const statuses: LineMetroProps['status'][] = ['normal', 'reduced_speed', 'closed', 'paralyzed'];
     const data: DonutChartProps['chartData'] = [];
@@ -71,13 +67,11 @@ export default function Home() {
     }
     return data;
   };
-
   const filteredLines = metroStatusData?.lines.filter(
     (line) =>
       (filterStatusLine === 'all' || line.status === filterStatusLine) &&
       (line.name.toLowerCase().includes(filterLineName.toLowerCase()) || line.number.toLowerCase().includes(filterLineName.toLowerCase()))
   );
-
   return (
     <main className="w-full py-10 pt-12 lg:px-28 xl:px-60">
       <div className="w-full">
@@ -141,21 +135,17 @@ export default function Home() {
             </div>
           ) : (
             <div className="space-y-4">
-              <GlowCapture>
-                <div>
-                  <Glow>
-                    <LinesDonutChart updatedAt={metroStatusData?.updatedAt || null} chartConfig={chartConfig} chartData={getCharData()} />
-                  </Glow>
-                </div>
-              </GlowCapture>
+              <Glow>
+                <LinesDonutChart updatedAt={metroStatusData?.updatedAt || null} chartConfig={chartConfig} chartData={getCharData()} />
+              </Glow>
               <div>
                 {metroStatusData && filteredLines && filteredLines.length > 0 ? (
                   <GlowCapture>
                     <div className="flex flex-wrap gap-5">
                       {filteredLines.map((metroStatus: LineMetroProps, index: number) => (
                         <div key={index} className="flex-grow">
-                          <Glow>
-                            <LineMetroCard {...metroStatus} updatedAt={metroStatusData.updatedAt} />
+                          <Glow color="#32a852">
+                            <LineMetroCard {...metroStatus} updatedAt={metroStatusData.updatedAt}/>
                           </Glow>
                         </div>
                       ))}
