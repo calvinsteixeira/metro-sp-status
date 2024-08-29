@@ -18,6 +18,8 @@ import { useQuery } from '@tanstack/react-query';
 import { LineMetroProps } from '@/components/containers/LineMetroCard';
 import { DonutChartProps } from '@/components/charts/LinesDonutChart';
 import { useTheme } from 'next-themes';
+import { metroStatusColor } from '@/constants/metroStatusColors'
+
 export default function Home() {
   const [filterLineName, setFilterLineName] = React.useState<string>('');
   const [filterStatusLine, setStatusLine] = React.useState<string>('all');
@@ -45,10 +47,10 @@ export default function Home() {
     },
   });
   const chartConfig: DonutChartProps['chartConfig'] = {
-    normal: { label: 'Operação Normal', color: '#32a852' },
-    reduced_speed: { label: 'Circulação de Trens', color: '#e0982b' },
-    closed: { label: 'Operação encerrada', color: '#969696' },
-    paralyzed: { label: 'Operação paralizada', color: '#a83232' },
+    normal: { label: 'Operação Normal', color: metroStatusColor.normal.colorBase },
+    reduced_speed: { label: 'Circulação de Trens', color: metroStatusColor.reduced_speed.colorBase },
+    closed: { label: 'Operação encerrada', color: metroStatusColor.closed.colorBase },
+    paralyzed: { label: 'Operação paralizada', color: metroStatusColor.paralyzed.colorBase },
   };
   const getCharData = (): DonutChartProps['chartData'] => {
     const statuses: LineMetroProps['status'][] = ['normal', 'reduced_speed', 'closed', 'paralyzed'];
