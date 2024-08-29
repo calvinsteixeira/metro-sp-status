@@ -85,7 +85,7 @@ export default function Home() {
           </h2>
           <div className="w-[2px] h-[4rem] bg-[#32a852]"></div>
           <p className="max-w-[17rem]">
-            Acompanhe de forma atualizada o <strong className="text-primary">status</strong> das linhas de metrô em SP.
+            Acompanhe de forma atualizada o status das linhas de metrô em SP.
           </p>
         </div>
         <div className="flex flex-row-reverse items-end justify-between mt-14">
