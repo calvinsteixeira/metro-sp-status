@@ -120,7 +120,7 @@ export default function Home() {
                   <span className="sr-only">Alterar o tema</span>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
+              <DropdownMenuContent align="start">
                 <DropdownMenuItem onClick={() => setTheme('light')}>Light</DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setTheme('dark')}>Dark</DropdownMenuItem>
                 <DropdownMenuItem onClick={() => setTheme('system')}>System</DropdownMenuItem>

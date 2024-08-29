@@ -62,7 +62,7 @@
   }
 
   main {
-    @apply min-h-screen px-6
+    @apply min-h-screen px-8
   }
 }
 
