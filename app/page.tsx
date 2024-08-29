@@ -17,6 +17,7 @@ import { useQuery } from '@tanstack/react-query';
 import { LineMetroProps } from '@/components/containers/LineMetroCard';
 import { DonutChartProps } from '@/components/charts/LinesDonutChart';
 import { useTheme } from 'next-themes';
+import { metroStatusColors } from '@/lib/constants';
 
 export default function Home() {
   const [filterLineName, setFilterLineName] = React.useState<string>('');
@@ -47,10 +48,10 @@ export default function Home() {
   });
 
   const chartConfig: DonutChartProps['chartConfig'] = {
-    normal: { label: 'Operação Normal', color: '#32a852' },
-    reduced_speed: { label: 'Circulação de Trens', color: '#e0982b' },
-    closed: { label: 'Operação encerrada', color: '#969696' },
-    paralyzed: { label: 'Operação paralizada', color: '#a83232' },
+    normal: { label: 'Operação Normal', color: metroStatusColors.normal },
+    reduced_speed: { label: 'Circulação de Trens', color: metroStatusColors.reduced_speed },
+    closed: { label: 'Operação encerrada', color: metroStatusColors.closed },
+    paralyzed: { label: 'Operação paralizada', color: metroStatusColors.reduced_speed },
   };
 
   const getCharData = (): DonutChartProps['chartData'] => {
@@ -140,17 +141,21 @@ export default function Home() {
             </div>
           ) : (
             <div className="space-y-4">
-              <Glow>
-                <LinesDonutChart updatedAt={metroStatusData?.updatedAt || null} chartConfig={chartConfig} chartData={getCharData()} />
-              </Glow>
+              <GlowCapture>
+                <div>
+                  <Glow>
+                    <LinesDonutChart updatedAt={metroStatusData?.updatedAt || null} chartConfig={chartConfig} chartData={getCharData()} />
+                  </Glow>
+                </div>
+              </GlowCapture>
               <div>
                 {metroStatusData && filteredLines && filteredLines.length > 0 ? (
                   <GlowCapture>
                     <div className="flex flex-wrap gap-5">
                       {filteredLines.map((metroStatus: LineMetroProps, index: number) => (
                         <div key={index} className="flex-grow">
-                          <Glow color="#32a852">
-                            <LineMetroCard {...metroStatus} updatedAt={metroStatusData.updatedAt}/>
+                          <Glow>
+                            <LineMetroCard {...metroStatus} updatedAt={metroStatusData.updatedAt} />
                           </Glow>
                         </div>
                       ))}
