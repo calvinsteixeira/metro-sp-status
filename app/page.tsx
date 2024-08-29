@@ -32,7 +32,7 @@ export default function Home() {
   const [filterLineName, setFilterLineName] = React.useState<string>('');
   const [filterStatusLine, setStatusLine] = React.useState<string>('all');
   const [requestTakingTooLong, setRequestTakingTooLong] = React.useState<boolean>(false);
-  const { setTheme, theme } = useTheme();
+  const { setTheme } = useTheme();
   const {
     isLoading,
     isError,
