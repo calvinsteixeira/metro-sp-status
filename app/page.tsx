@@ -13,10 +13,12 @@ import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { LineMetroProps } from '@/components/containers/LineMetroCard';
 import { DonutChartProps } from '@/components/charts/LinesDonutChart';
+import { useTheme } from "next-themes"
 
 export default function Home() {
   const [filterLineName, setFilterLineName] = React.useState<string>('');
   const [filterStatusLine, setStatusLine] = React.useState<string>('all');
+  const { setTheme, theme } = useTheme()
   const {
     isLoading,
     isError,
@@ -42,7 +44,11 @@ export default function Home() {
   });
 
   function toggleTheme() {
-    document.documentElement.classList.toggle('dark')
+    if(theme == 'light') {
+      setTheme('dark')
+    } else {
+      setTheme('light')
+    }
   }
 
   const chartConfig: DonutChartProps['chartConfig'] = {
@@ -79,16 +85,16 @@ export default function Home() {
   return (
     <main className="w-full py-10 pt-12 lg:px-28 xl:px-60">
       <div className="w-full">
-        <div className="flex gap-8 items-center">
+        <div className="flex flex-col sm:flex-row sm:gap-8 gap-4 sm:items-center">
           <h2 className="max-w-max flex flex-col font-bold text-4xl text-[#32a852]">
             METROSP<span className="font-light">STATUS</span>
           </h2>
-          <div className="w-[2px] h-[4rem] bg-[#32a852]"></div>
+          <div className="hidden sm:block w-[2px] h-[4rem] bg-[#32a852]"></div>
           <p className="max-w-[17rem]">
             Acompanhe de forma atualizada o status das linhas de metrô em SP.
           </p>
         </div>
-        <div className="flex flex-row-reverse items-end justify-between mt-14">
+        <div className="flex sm:flex-row-reverse flex-col-reverse sm:items-end sm:justify-between gap-2 sm:gap-0 mt-14">
           <div className="flex flex-col sm:flex-row sm:items-center gap-3 mt-4">
             <div className='space-y-2'>
               <Label className="text-foreground" htmlFor="buscar-linha">
@@ -113,8 +119,8 @@ export default function Home() {
             </div>
           </div>
           <div className="flex items-center gap-2">
-            <Label>dark mode</Label>
-            <Switch onCheckedChange={() => toggleTheme()}/>
+            <Label>{theme} mode</Label>
+            <Switch checked={theme == 'light' ? false : true} onCheckedChange={() => toggleTheme()}/>
           </div>
         </div>
         <div className="mt-6">
