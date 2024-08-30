@@ -42,7 +42,7 @@ export default function Home() {
     queryFn: async () => {
       const timer = setTimeout(() => {
         setRequestTakingTooLong(true);
-      }, 5000);
+      }, 10000);
       try {
         const result = await fetch('https://status-metro-api.onrender.com', {
           method: 'GET',
