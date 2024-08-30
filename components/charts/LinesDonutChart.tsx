@@ -25,7 +25,7 @@ export default function Component(props: DonutChartProps) {
   const chartConfig = props.chartConfig satisfies ChartConfig;
 
   return (
-    <Card className="flex flex-col glow:border-glow dark:border-[#302f2f] border-[#c5c5c5]">
+    <Card className="flex flex-col dark:border-[#302f2f] border-[#c5c5c5]">
       <CardHeader className="pb-0 text-center">
         <CardTitle>Disponibilidade das linhas</CardTitle>
         <CardDescription>{new Date().toLocaleDateString('pt-BR')}</CardDescription>

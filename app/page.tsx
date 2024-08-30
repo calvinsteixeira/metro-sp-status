@@ -89,19 +89,19 @@ export default function Home() {
   );
   return (
     <main className="w-full py-10 pt-12 lg:px-28 xl:px-60">
-        <AlertDialog open={requestTakingTooLong}>
-          <AlertDialogContent className='max-w-[20rem]'>
-            <AlertDialogHeader>
-              <AlertDialogTitle>Demora no carregamento dos dados?</AlertDialogTitle>
-              <AlertDialogDescription>
-                Devido a uma estratégia de cold start na hospedagem do servidor, o primeiro carregamento dos dados pode demorar mais do que o normal.
-              </AlertDialogDescription>
-            </AlertDialogHeader>
-            <AlertDialogFooter>
-              <AlertDialogCancel onClick={() => setRequestTakingTooLong(false)}>Ok, entendi.</AlertDialogCancel>
-            </AlertDialogFooter>
-          </AlertDialogContent>
-        </AlertDialog>
+      <AlertDialog open={requestTakingTooLong}>
+        <AlertDialogContent className="max-w-[20rem]">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Demora no carregamento dos dados?</AlertDialogTitle>
+            <AlertDialogDescription>
+              Devido a uma estratégia de cold start na hospedagem do servidor, o primeiro carregamento dos dados pode demorar mais do que o normal.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={() => setRequestTakingTooLong(false)}>Ok, entendi.</AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
       <div className="w-full">
         <div className="flex flex-col sm:flex-row sm:gap-8 gap-4 sm:items-center">
           <h2 className="max-w-max flex flex-col font-bold text-4xl text-[#32a852]">
@@ -151,7 +151,6 @@ export default function Home() {
             </DropdownMenu>
           </div>
         </div>
-
         <div className="mt-6">
           {isLoading ? (
             <div className="space-y-2">
@@ -163,9 +162,7 @@ export default function Home() {
             </div>
           ) : (
             <div className="space-y-4">
-              <Glow>
-                <LinesDonutChart updatedAt={metroStatusData?.updatedAt || null} chartConfig={chartConfig} chartData={getCharData()} />
-              </Glow>
+              <LinesDonutChart updatedAt={metroStatusData?.updatedAt || null} chartConfig={chartConfig} chartData={getCharData()} />
               <div>
                 {metroStatusData && filteredLines && filteredLines.length > 0 ? (
                   <GlowCapture>
