@@ -1,7 +1,7 @@
 //UTILS
 import React from 'react';
 import { cn, formatDateBR } from '@/lib/utils';
-import { metroStatusColor } from '@/constants/metroStatusColors'
+import { metroStatusColor } from '@/constants/metroStatusColors';
 
 type LineMetroProps = {
   name: string;
@@ -22,10 +22,16 @@ export default function LineMetroCard(props: LineMetroProps) {
       <div className="space-y-4">
         <div className="flex flex-col gap-1">
           <div className="flex gap-2 items-center">
-            <span className={cn('w-2 h-2 rounded-full animate-pulse', metroStatusColor[props.status].background)}></span>
-            <p className={cn('font-semibold', metroStatusColor[props.status].text)}>{props.statusDescription}</p>
+            <span style={{ backgroundColor: metroStatusColor[props.status].colorBase }} className={'w-2 h-2 rounded-full animate-pulse'}></span>
+            <p style={{ color: metroStatusColor[props.status].colorBase }} className={'font-semibold'}>
+              {props.statusDescription}
+            </p>
           </div>
-          {props.reason != props.statusDescription && <p className={cn('font-semibold max-w-96', metroStatusColor[props.status].text)}>{props.reason}</p>}
+          {props.reason != props.statusDescription && (
+            <p style={{ color: metroStatusColor[props.status].colorBase }} className={'font-semibold max-w-96'}>
+              {props.reason}
+            </p>
+          )}
         </div>
         <p className="flex flex-col text-xs">
           Atualizado em: <span className="font-medium tex-sm">{formatDateBR(props.updatedAt)}</span>

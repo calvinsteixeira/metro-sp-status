@@ -1,7 +1,5 @@
 type StatusColorClass = {
   colorBase: string;
-  text: string;
-  background: string;
 };
 
 type StatusColorMap = {
@@ -10,23 +8,15 @@ type StatusColorMap = {
 
 export const metroStatusColor: StatusColorMap = {
   normal: {
-    colorBase: "#32a852",
-    text: 'text-[#32a852]',
-    background: 'bg-[#32a852]',
+    colorBase: "hsl(var(--metro-status-normal))"
   },
   reduced_speed: {
-    colorBase: "#e0982b",
-    text: 'text-[#e0982b]',
-    background: 'bg-[#e0982b]',
+    colorBase: "hsl(var(--metro-status-reduced_speed))"
   },
   closed: {
-    colorBase: "#969696",
-    text: 'text-[#969696]',
-    background: 'bg-[#969696]',
+    colorBase: "hsl(var(--metro-status-closed))"
   },
   paralyzed: {
-    colorBase: "#a83232",
-    text: 'text-[#a83232]',
-    background: 'bg-[#a83232]',
+    colorBase: "hsl(var(--metro-status-paralyzed))"
   },
 };

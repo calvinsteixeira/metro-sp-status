@@ -26,7 +26,11 @@
     --input: 0 0% 77%;
     --ring: 0 0% 69%;
     --radius: 0.5rem;
-    --glow: 0 0% 16%;    
+    --glow: 0 0% 16%;
+    --metro-status-normal: 136 54% 43%;
+    --metro-status-reduced_speed: 36 74% 52%;
+    --metro-status-closed: 0 0% 59%;
+    --metro-status-paralyzed: 0 54% 43%;
   }
 
   .dark {
@@ -51,7 +55,11 @@
     --border: 0 0% 56%;
     --input: 0 2% 46%;
     --ring: 0 0% 56%;
-    --glow: 136 54% 43%;    
+    --glow: 136 54% 43%;
+    --metro-status-normal: 136 54% 43%;
+    --metro-status-reduced_speed: 36 74% 52%;
+    --metro-status-closed: 0 0% 59%;
+    --metro-status-paralyzed: 0 54% 43%;
   }
 }
 
@@ -64,7 +72,7 @@
   }
 
   main {
-    @apply min-h-screen px-8
+    @apply min-h-screen px-8;
   }
 }
 
@@ -75,12 +83,12 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: hsl(136, 54%, 43%); 
+    background-color: hsl(136, 54%, 43%);
     border-radius: 10px;
   }
 
   ::-webkit-scrollbar-track {
-    background-color: hsl(0, 0%, 17%); 
+    background-color: hsl(0, 0%, 17%);
     border-radius: 10px;
   }
 }
